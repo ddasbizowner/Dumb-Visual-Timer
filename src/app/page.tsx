@@ -190,7 +190,7 @@ export default function Home() {
             background: `radial-gradient(circle, ${themeColor.glow} 0%, transparent 70%)`,
             transition: 'background 0.5s ease',
             opacity: isRunning && pulseEnabled ? undefined : 0.4,
-            animation: isRunning && pulseEnabled ? 'pulse-opacity 4s ease-in-out infinite' : 'none'
+            animation: isRunning && pulseEnabled ? 'pulse-opacity 3s ease-in-out infinite' : 'none'
           }}
         />
       </div>
