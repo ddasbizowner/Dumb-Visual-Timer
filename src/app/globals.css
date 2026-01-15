@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --timer-bg: #0a0a0f;
+  --timer-face: #12121a;
+  --timer-ring: #1a1a25;
+  --timer-sector: #4ade80;
+  --timer-sector-glow: #86efac;
+  --timer-accent: #00d9ff;
+  --timer-text: #e8e8ec;
+  --timer-muted: #5a5a6e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--timer-bg);
+  color: var(--timer-text);
+  background-image: 
+    radial-gradient(ellipse at 25% 50%, rgba(74, 222, 128, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 50%, rgba(0, 217, 255, 0.04) 0%, transparent 40%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--timer-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--timer-muted);
+  border-radius: 2px;
+}
+
+/* Button base styles */
+.btn {
+  @apply px-3 py-1.5 rounded text-xs font-mono uppercase tracking-wider transition-all duration-200;
+  @apply border border-timer-muted/30 bg-timer-face/50 text-timer-muted;
+  @apply hover:border-timer-accent/50 hover:text-timer-accent hover:bg-timer-accent/10;
+  @apply active:scale-95;
+}
+
+.btn-primary {
+  @apply border-timer-sector/50 text-timer-sector;
+  @apply hover:border-timer-sector hover:bg-timer-sector/20 hover:text-timer-sectorGlow;
+}
+
+.btn-icon {
+  @apply w-8 h-8 flex items-center justify-center text-base p-0;
+}
+
+/* Flash animation for timer completion */
+@keyframes flash-pulse {
+  0%, 100% { 
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  50% { 
+    background-color: rgba(255, 50, 50, 0.9);
+  }
+}
+
+.animate-flash-pulse {
+  animation: flash-pulse 0.3s ease-in-out infinite;
+}
+
+/* Pulse animation for background glow - uses opacity to work with any color */
+@keyframes pulse-opacity {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(-50%) scale(0.9);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1.1);
+  }
+}
+
+/* Pulse animation for SVG glow - scales the filter intensity */
+@keyframes pulse-glow-dynamic {
+  0%, 100% { 
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% { 
+    transform: scale(1.02);
+    filter: brightness(1.15);
+  }
+}
