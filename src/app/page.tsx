@@ -144,15 +144,16 @@ export default function Home() {
   }, [totalSeconds, warningSeconds])
 
   // SVG arc calculation for the timer sector
+  // Draws counter-clockwise from top, so the sector decreases clockwise as time runs out
   const createArcPath = (progress: number, radius: number, centerX: number, centerY: number) => {
     if (progress <= 0) return ''
     if (progress >= 1) {
-      return `M ${centerX} ${centerY - radius} A ${radius} ${radius} 0 1 1 ${centerX - 0.001} ${centerY - radius} Z`
+      return `M ${centerX} ${centerY - radius} A ${radius} ${radius} 0 1 0 ${centerX + 0.001} ${centerY - radius} Z`
     }
 
     const angle = progress * 360
-    const startAngle = -90 // Start from top
-    const endAngle = startAngle + angle
+    const startAngle = -90 // Start from top (12 o'clock)
+    const endAngle = startAngle - angle // Go counter-clockwise
 
     const startRad = (startAngle * Math.PI) / 180
     const endRad = (endAngle * Math.PI) / 180
@@ -164,7 +165,8 @@ export default function Home() {
 
     const largeArcFlag = angle > 180 ? 1 : 0
 
-    return `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`
+    // sweep-flag = 0 for counter-clockwise direction
+    return `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 0 ${x2} ${y2} Z`
   }
 
   // SVG dimensions - will scale to 90% of viewport height
